@@ -7,64 +7,58 @@
     tools:context="com.leobasco.labquiz_4itb_12072017.MainActivity">
 
     <ImageView
-        android:id="@+id/image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:srcCompat="@drawable/ust"
-        android:layout_marginTop="50dp"
+        android:id="@+id/imageView"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="48dip"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"
+        app:srcCompat="@drawable/zom" />
 
     <EditText
-        android:id="@+id/et_user"
+        android:id="@+id/etUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/image"
-        android:layout_alignRight="@+id/btnLogin"
-        android:layout_alignEnd="@+id/btnLogin"
-        android:layout_marginRight="38dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginTop="92dp" />
+        android:hint="Username"
+        android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/et_pass"
+        android:id="@+id/etPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/et_user"
-        android:layout_alignStart="@+id/et_user"
-        android:layout_below="@+id/et_user"
-        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@+id/etUser"
+        android:layout_alignStart="@+id/etUser"
+        android:layout_centerVertical="true"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnRem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnLogin"
-        android:layout_alignBottom="@+id/btnLogin"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="68dp"
-        android:layout_marginStart="68dp"
-        android:onClick="saveStorage"
-        android:text="REMEMBER ME" />
+        android:id="@+id/btnRemMe"
+        android:layout_width="180dip"
+        android:layout_height="48dip"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_below="@+id/etPass"
+        android:layout_marginTop="63dp"
+        android:text="Remember Me"
+        android:onClick="rememberMe"/>
+
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick = "act"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:text="LOGIN"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="55dp" />
+        android:layout_alignBottom="@+id/btnRemMe"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_toEndOf="@+id/btnRemMe"
+        android:layout_toRightOf="@+id/btnRemMe"
+        android:text="Login"
+        android:onClick="login"/>
 
 </RelativeLayout>

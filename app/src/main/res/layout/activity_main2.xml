@@ -7,32 +7,31 @@
     tools:context="com.leobasco.labquiz_4itb_12072017.Main2Activity">
 
     <TextView
-        android:id="@+id/tv_welcome"
+        android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="107dp"
-        android:text="Welcome"
-        android:textSize="36sp" />
+        android:layout_marginTop="64dp"
+        android:text="WELCOME"
+        android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/tv_message"
+        android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_welcome"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/tvWelcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_message"
-        android:onClick="house"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
-        android:text="Log out" />
+        android:layout_marginBottom="61dp"
+        android:onClick="logout"
+        android:text="LOGOUT" />
 </RelativeLayout>

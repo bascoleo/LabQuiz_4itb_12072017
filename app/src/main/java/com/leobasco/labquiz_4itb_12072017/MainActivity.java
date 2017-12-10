@@ -2,89 +2,105 @@ package com.leobasco.labquiz_4itb_12072017;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.leobasco.labquiz_4itb_12072017.;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView image;
     EditText et_user;
     EditText et_pass;
-    Button btn_rem;
-    Button btn_login;
-    FileOutputStream fos;
-    FileInputStream fis;
-    TextView textview;
+    Button btn_Rem;
+    Button btn_Login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        image = (ImageView) findViewById(R.id.image);
-        et_user = (EditText) findViewById(R.id.et_user);
-        et_pass = (EditText) findViewById(R.id.et_pass);
-        btn_rem = (Button) findViewById(R.id.btnRem);
-        btn_login = (Button) findViewById(R.id.btnLogin);
-        textview = (TextView) findViewById(R.id.textView);
+
+        et_user = (EditText) findViewById(R.id.etUser);
+        et_pass = (EditText) findViewById(R.id.etPass);
+        btn_Rem = (Button) findViewById(R.id.btnRemMe);
+        btn_Login = (Button) findViewById(R.id.btnLogin);
+
+        et_user.setOnKeyListener(new EditText.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String user = preferences.getString("username","");
+                String pass = preferences.getString("password","");
+
+                String sUsername = et_user.getText().toString();
+
+                if(!user.isEmpty()) {
+                    if (sUsername.equals(user)) {
+                        et_pass.setText(pass);
+                        et_pass.setBackgroundColor(Color.YELLOW);
+                    }
+                    else if (!(sUsername.equals(user))){
+                        et_pass.setText("");
+                        et_pass.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        et_pass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    String user = preferences.getString("username","");
+                    String pass = preferences.getString("password","");
+
+                    String sUsername = et_user.getText().toString();
+
+                    if(!user.isEmpty()) {
+                        if (sUsername.equals(user)) {
+                            et_pass.setText(pass);
+                            et_pass.setBackgroundColor(Color.YELLOW);
+                        }
+                        else if (!(sUsername.equals(user))){
+                            et_pass.setText("");
+                            et_pass.setBackgroundColor(Color.TRANSPARENT);
+                        }
+                    }
+
+                }
+            }
+        });
+    }
+
+    public void rememberMe (View view){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username", et_user.getText().toString());
+        editor.putString("password", et_pass.getText().toString());
+        editor.commit();
+        Toast.makeText(this, "Preference Saved!", Toast.LENGTH_SHORT).show();
 
     }
-    public void saveStorage (View view) {
-        String message = et_user.getText().toString();
-        String message2 = et_pass.getText().toString();
-        try {
-            fos = openFileOutput("output.txt", Context.MODE_PRIVATE);
-            fos.write(message.getBytes());
-            fos.write(message2.getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }
 
-        Toast.makeText(this, "Message saved!", Toast.LENGTH_SHORT).show();
+    public void login (View view){
+        Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
     }
-    public void act (View view){
-        StringBuffer buffer = new StringBuffer();
-        int read = 0;
-        try{
-            fis = openFileInput("output.txt");
-            while((read = fis.read()) != -1){
-                buffer.append((char)read);
-            }
-            fis.close();
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        String user = et_user.getText().toString();
-        String pass = et_pass.getText().toString();
-        if(buffer.toString().equals(user +""+pass)) {
-            Intent intent = new Intent(this, Main2Activity.class);
-            startActivity(intent);
-        }else{
-            Toast.makeText(this, "Invalid Username and Password", Toast.LENGTH_SHORT).show();
-        }
-    }
+
+
 }
-
